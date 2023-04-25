@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "516307815351",
+    "firebase_url": "https://hoteldepartment-6d68d-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "hoteldepartment-6d68d",
+    "storage_bucket": "hoteldepartment-6d68d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:516307815351:android:a60db8804012441654f632",
+        "android_client_info": {
+          "package_name": "com.example.hotelapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "516307815351-lpkkm1v1c6ggm4n22dug4vssvggc6262.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3uiuvbCiUb_oNXtPgYbAFhxQHueFbkPU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "516307815351-lpkkm1v1c6ggm4n22dug4vssvggc6262.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:516307815351:android:ad59624ba709175954f632",
+        "android_client_info": {
+          "package_name": "com.example.qlkhachsan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "516307815351-lpkkm1v1c6ggm4n22dug4vssvggc6262.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3uiuvbCiUb_oNXtPgYbAFhxQHueFbkPU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "516307815351-lpkkm1v1c6ggm4n22dug4vssvggc6262.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/g_card_background"
+    android:elevation="0dp"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="180dp">
+
+        <ImageView
+            android:id="@+id/imgHotel"
+            android:layout_width="120dp"
+            android:layout_height="150dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            />
+
+        <TextView
+            android:id="@+id/tv_hotel_name"
+            android:layout_width="200dp"
+            android:layout_height="27dp"
+            android:layout_marginStart="@dimen/_11sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:fontFamily="@font/poppins_light"
+            android:text="Name Hotel"
+            android:textColor="@color/black"
+            android:textSize="23dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/imgHotel"
+            app:layout_constraintTop_toTopOf="@id/imgHotel" />
+
+        <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="200000 VND/Ngày"
+            app:layout_constraintTop_toBottomOf="@id/tv_hotel_name"
+            app:layout_constraintStart_toStartOf="@id/tv_hotel_name"
+            android:textColor="@color/g_black"
+            android:textSize="17dp"
+            android:fontFamily="@font/sf_pro_display"
+            android:layout_marginStart="@dimen/_8sdp"
+            />
+        <TextView
+            android:id="@+id/tvAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Địa chỉ "
+            app:layout_constraintTop_toBottomOf="@id/tvPrice"
+            app:layout_constraintStart_toStartOf="@id/tvPrice"
+            android:textColor="@color/g_black"
+            android:textSize="17dp"
+            android:fontFamily="@font/sf_pro_display"
+            android:layout_marginStart="@dimen/_8sdp"
+            />
+
+
+<!--        <TextView-->
+<!--            android:id="@+id/tv_new_price"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="$1600"-->
+<!--            app:layout_constraintStart_toStartOf="@id/tvBestDealName"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/tvBestDealName"-->
+
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="@dimen/_12ssp"-->
+<!--            android:fontFamily="@font/sf_pro_display"/>-->
+
+        <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+            android:id="@+id/btnDetail"
+            android:layout_width="77dp"
+            android:layout_height="25dp"
+            android:background="@drawable/btn_background"
+            android:fontFamily="@font/poppins_light"
+            android:text="Xem Chi tiết"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/tvAddress"
+            android:textAllCaps="false"
+            app:layout_constraintStart_toEndOf="@id/imgHotel"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="20dp"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
