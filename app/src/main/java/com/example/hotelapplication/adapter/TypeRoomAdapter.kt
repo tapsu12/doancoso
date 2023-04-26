@@ -6,21 +6,25 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.hotelapplication.data.TypeRoom
 import com.example.hotelapplication.databinding.TypeRvItemBinding
 class TypeRoomAdapter: RecyclerView.Adapter<TypeRoomAdapter.TypeRoomViewHolder>() {
     private var selectedPosition = -1
+
     inner class TypeRoomViewHolder(private val binding:TypeRvItemBinding) : RecyclerView.ViewHolder(binding.root)
     {
-        fun bind(size: String, position: Int){
-            binding.tvSize.text = size
+        fun bind(typeroom: TypeRoom, position: Int){
+            binding.tvnameroom.text = typeroom.name
+            binding.tvdescriptionType.text=typeroom.description
+            binding.tvpricetype.text="${typeroom.price} VND/ngày"
             if (position == selectedPosition){// size is selected
                 binding.apply {
-                    imageShadow.visibility = View.VISIBLE
+                    check.visibility = View.VISIBLE
 
                 }
             } else{ // size not is selected
                 binding.apply {
-                    imageShadow.visibility = View.INVISIBLE
+                    check.visibility = View.INVISIBLE
 
                 }
             }
@@ -29,19 +33,19 @@ class TypeRoomAdapter: RecyclerView.Adapter<TypeRoomAdapter.TypeRoomViewHolder>(
         }
     }
     // diffCallback là một đối tượng để so sánh hai mục khác nhau trong danh sách các size.
-    private val diffCallback =object : DiffUtil.ItemCallback<String>(){
+    private val diffCallback = object : DiffUtil.ItemCallback<TypeRoom>(){
         //Đối tượng này cần phải thực hiện hai phương thức areItemsTheSame và areContentsTheSame.
-        override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
+        override fun areItemsTheSame(oldItem: TypeRoom, newItem: TypeRoom): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
+        override fun areContentsTheSame(oldItem: TypeRoom, newItem: TypeRoom): Boolean {
             return oldItem == newItem
 
         }
 
     }
-    val differ = AsyncListDiffer(this, diffCallback)
+    val differ = AsyncListDiffer<TypeRoom>(this, diffCallback)
     // AsyncListDiffer để quản lý danh sách các loại phòng và cung cấp các hàm cập nhật danh sách.
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TypeRoomViewHolder {
         return TypeRoomViewHolder(
@@ -56,15 +60,16 @@ class TypeRoomAdapter: RecyclerView.Adapter<TypeRoomAdapter.TypeRoomViewHolder>(
     }
 
     override fun onBindViewHolder(holder: TypeRoomViewHolder, position: Int) {
-        val size = differ.currentList[position]
-        holder.bind(size, position)
+        val typeroom = differ.currentList[position]
+
+        holder.bind(typeroom, position)
 
         holder.itemView.setOnClickListener{
             if (selectedPosition>=0)
                 notifyItemChanged(selectedPosition)
             selectedPosition = holder.adapterPosition
             notifyItemChanged(selectedPosition)
-            onItemClick?.invoke(size)
+            onItemClick?.invoke(typeroom.name)
         }
     }
     var onItemClick: ((String) -> Unit)? = null

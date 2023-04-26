@@ -17,11 +17,6 @@ class HotelAdapter:RecyclerView.Adapter<HotelAdapter.HotelsViewHolder>() {
             binding.apply{
 
                 Glide.with(itemView).load(hotel.images[0]).into(imgHotel)
-//                product.offerPercentage?.let {
-//                    val remainingPricePercentage=1f-it
-//                    val priceAterOffer= remainingPricePercentage*product.price
-//                    tvNewPrice.text="$ ${String.format("%.2f",priceAterOffer)}"
-//                }
                 tvPrice.text="${hotel.price} VND/Ngày"
                 tvHotelName.text=hotel.name
                 tvAddress.text=hotel.address

@@ -78,10 +78,8 @@ class HotelDetailsFragment:Fragment() {
             }
         }
         viewPageAdapter.differ.submitList(hotel.images)
-        hotel.typeRoom.let {
-//            typeRoomAdapter.differ.submitList(it)
+        typeRoomAdapter.differ.submitList(hotel.typeRoom)
 
-        }
     }
 
     private fun setupTypeRv() {
