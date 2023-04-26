@@ -48,6 +48,7 @@ class RegisterFragment : Fragment() {
                     edLastName.text.toString().trim(),
                     edEmail.text.toString().trim(),
                     edPhone.text.toString().trim(),
+                    "user"
                 )
                 val password = edPassword.text.toString().trim()
                 viewModel.createAccountWithEmailAndPassword(user, password)

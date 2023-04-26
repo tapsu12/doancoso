@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.hotelapplication.R
+import com.example.hotelapplication.activity.AdminActivity
 import com.example.hotelapplication.activity.MainActivity
 import com.example.hotelapplication.databinding.FragmentLoginBinding
 import com.example.hotelapplication.dialog.setupBottomSheetDialog
@@ -35,16 +36,23 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.tvDontHaveAccount.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_addInfoHotelFragment)
+            findNavController().navigate(R.id.action_loginFragment_to_registerFragment2)
         }
-        binding.btnLoginAd.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_loginAdminFragment)
+
+        binding.btnRegisterAd.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_registerAdminFragment)
         }
         binding.apply {
             buttonLoginLogin.setOnClickListener {
                 val email = edEmailLogin.text.toString()
                 val password = edPasswordLogin.text.toString()
                 viewModel.login(email, password)
+
+            }
+            btnLoginAd.setOnClickListener {
+                val email = edEmailLogin.text.toString()
+                val password = edPasswordLogin.text.toString()
+                viewModel.loginad(email, password)
             }
         }
 
@@ -71,7 +79,6 @@ class LoginFragment : Fragment() {
                 }
             }
         }
-
         lifecycleScope.launchWhenStarted {
             viewModel.login.collect {
                 when (it) {
@@ -84,9 +91,32 @@ class LoginFragment : Fragment() {
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                             startActivity(intent)
                         }
+
                     }
                     is Resource.Error -> {
                         binding.buttonLoginLogin.revertAnimation()
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                    }
+                    else -> Unit
+                }
+            }
+        }
+        lifecycleScope.launchWhenStarted {
+            viewModel.loginad.collect {
+                when (it) {
+                    is Resource.Loading -> {
+                        binding.btnLoginAd.startAnimation()
+                    }
+                    is Resource.Success -> {
+                        binding.btnLoginAd.revertAnimation()
+                        Intent(requireActivity(), AdminActivity::class.java).also { intent ->
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                            startActivity(intent)
+                        }
+
+                    }
+                    is Resource.Error -> {
+                        binding.btnLoginAd.revertAnimation()
                         Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                     }
                     else -> Unit

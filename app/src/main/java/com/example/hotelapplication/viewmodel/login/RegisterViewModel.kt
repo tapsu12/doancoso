@@ -1,8 +1,10 @@
 package com.example.hotelapplication.viewmodel.login
 
 import androidx.lifecycle.ViewModel
+import com.example.hotelapplication.data.Admin
 import com.example.hotelapplication.data.User
 import com.example.hotelapplication.util.*
+import com.example.hotelapplication.util.Constants.ADMIN_COLLECTION
 import com.example.hotelapplication.util.Constants.USER_COLLECTION
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -22,6 +24,8 @@ class RegisterViewModel @Inject constructor(
 
     private val _register = MutableStateFlow<Resource<User>>(Resource.Unspecified())
     val register: Flow<Resource<User>> = _register
+    private val _adregister = MutableStateFlow<Resource<Admin>>(Resource.Unspecified())
+    val adregister: Flow<Resource<Admin>> = _adregister
 
     private val _validation = Channel<RegisterFieldsState>()
     val validation = _validation.receiveAsFlow()
@@ -48,7 +52,50 @@ class RegisterViewModel @Inject constructor(
             }
         }
     }
-//lưu tên vào cơ sở dữ liệu
+    fun createAdAccountWithEmailAndPassword(admin: Admin, password: String) {
+
+        if (checkValidationAd(admin, password)) {
+            runBlocking {
+                _adregister.emit(Resource.Loading())
+            }
+            firebaseAuth.createUserWithEmailAndPassword(admin.email, password).addOnSuccessListener {
+                it.user?.let {
+                    saveAdminInfo(it.uid, admin)
+                }
+            }.addOnFailureListener {
+                _adregister.value = Resource.Error(it.message.toString())
+            }
+        } else {
+            val registerFieldsState = RegisterFieldsState(
+                validateEmail(admin.email), validatePassword(password)
+            )
+            runBlocking {
+                _validation.send(registerFieldsState)
+            }
+        }
+    }
+
+    private fun saveAdminInfo(uidAdmin: String, admin: Admin) {
+        db.collection(ADMIN_COLLECTION)
+            .document(uidAdmin)
+            .set(admin)
+            .addOnSuccessListener {
+                _adregister.value = Resource.Success(admin)
+            }.addOnFailureListener {
+                _adregister.value = Resource.Error(it.message.toString())
+            }
+    }
+
+    private fun checkValidationAd(admin: Admin, password: String): Boolean {
+        val emailValidation = validateEmail(admin.email)
+        val passwordValidation = validatePassword(password)
+        val shouldRegister =
+            emailValidation is RegisterValidation.Success && passwordValidation is RegisterValidation.Success
+
+        return shouldRegister
+    }
+
+    //lưu tên vào cơ sở dữ liệu
     private fun saveUserInfo(userUid: String, user: User) {
         db.collection(USER_COLLECTION)
             .document(userUid)
