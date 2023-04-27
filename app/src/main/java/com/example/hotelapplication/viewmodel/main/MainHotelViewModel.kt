@@ -1,4 +1,4 @@
-package com.example.hotelapplication.viewmodel
+package com.example.hotelapplication.viewmodel.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

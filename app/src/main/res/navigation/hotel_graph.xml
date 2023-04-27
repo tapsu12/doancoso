@@ -23,4 +23,16 @@
             android:name="hotel"
             app:argType="com.example.hotelapplication.data.Hotel" />
     </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.hotelapplication.fragment.main.ProfileFragment"
+        android:label="ProfileFragment" >
+        <action
+            android:id="@+id/action_profileFragment_to_userAccountFragment"
+            app:destination="@id/userAccountFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userAccountFragment"
+        android:name="com.example.hotelapplication.fragment.main.UserAccountFragment"
+        android:label="UserAccountFragment" />
 </navigation>

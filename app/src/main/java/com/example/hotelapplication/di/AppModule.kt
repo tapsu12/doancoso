@@ -1,10 +1,13 @@
 package com.example.hotelapplication.di
 
 //import com.example.project03.firebase.FirebaseCommon
+import android.app.Application
+import android.content.Context
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.storage.FirebaseStorage
 //import com.google.firebase.ktx.Firebase
 import dagger.Module
 import dagger.Provides
@@ -28,4 +31,13 @@ object AppModule {
 //    @Provides
 //    @Singleton
 //    fun provideFirebaseCommon(firebaseAuth: FirebaseAuth,firestore: FirebaseFirestore)=FirebaseCommon(firestore,firebaseAuth)
+    @Provides
+    @Singleton
+    fun providesStorage() = FirebaseStorage.getInstance().reference
+
+//    @Provides
+//    fun provideIntroductionSP(
+//        application: Application
+//    ) = application.getSharedPreferences(INTRODUCTION_SP, Context.MODE_PRIVATE)
+
 }

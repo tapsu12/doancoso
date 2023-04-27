@@ -15,8 +15,7 @@ import com.example.hotelapplication.R
 import com.example.hotelapplication.adapter.HotelAdapter
 import com.example.hotelapplication.databinding.FragmentHomeBinding
 import com.example.hotelapplication.util.Resource
-import com.example.hotelapplication.util.showBottomNavigationView
-import com.example.hotelapplication.viewmodel.MainHotelViewModel
+import com.example.hotelapplication.viewmodel.main.MainHotelViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 private val TAG="HomeFragment"
