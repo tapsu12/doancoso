@@ -31,8 +31,6 @@ class UserAccountFragment:Fragment() {
     private lateinit var binding: FragmentUserAccountBinding
     private val viewModel by viewModels<UserAccountViewMoldel> ()
     private lateinit var imageActivityResultLauncher: ActivityResultLauncher<Intent>
-
-
     private var imageUri: Uri?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

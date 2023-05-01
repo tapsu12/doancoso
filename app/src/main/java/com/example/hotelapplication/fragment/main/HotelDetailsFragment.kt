@@ -71,7 +71,7 @@ class HotelDetailsFragment:Fragment() {
             tvHotelName.text=hotel.name
             tvHotelPrice.text=" ${hotel.price} VND/Ngày"
             tvHotelDescription.text=hotel.description
-            tvHotelAdresss.text=hotel.address
+            tvHotelAdresss.text="${hotel.addressdetail} ,${hotel.address}"
             if(hotel.typeRoom.isNullOrEmpty()){
                 tvTypeRoom.visibility=View.INVISIBLE
 
@@ -85,7 +85,7 @@ class HotelDetailsFragment:Fragment() {
     private fun setupTypeRv() {
         bingding.rvTypeRoom.apply{
             adapter= typeRoomAdapter
-            layoutManager= LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+            layoutManager= LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
         }
     }
 

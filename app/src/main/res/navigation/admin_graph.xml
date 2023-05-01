@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/admin_graph"
+    app:startDestination="@id/adminShowFragment">
+
+    <fragment
+        android:id="@+id/adminShowFragment"
+        android:name="com.example.hotelapplication.fragment.admin.AdminShowFragment"
+        tools:layout="@layout/fragment_admin_show"
+        android:label="AdminShowFragment" >
+        <action
+            android:id="@+id/action_adminShowFragment_to_updateDeleteAdminFragment"
+            app:destination="@id/updateDeleteAdminFragment" />
+        <action
+            android:id="@+id/action_adminShowFragment_to_addInfoHotelFragment"
+            app:destination="@id/addInfoHotelFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addInfoHotelFragment"
+        android:name="com.example.hotelapplication.fragment.admin.AddInfoHotelFragment"
+        android:label="fragment_add_info_hotel"
+        tools:layout="@layout/fragment_add_info_hotel" />
+    <fragment
+        android:id="@+id/updateDeleteAdminFragment"
+        android:name="com.example.hotelapplication.fragment.admin.UpdateDeleteAdminFragment"
+        tools:layout="@layout/fragment_admin_update_delete"
+        android:label="UpdateDeleteAdminFragment" >
+        <argument
+            android:name="hotelshow"
+            app:argType="com.example.hotelapplication.data.Hotel" />
+    </fragment>
+</navigation>

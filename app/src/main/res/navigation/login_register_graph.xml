@@ -47,17 +47,12 @@
             app:destination="@id/loginFragment" />
     </fragment>
     <fragment
-        android:id="@+id/addInfoHotelFragment"
-        android:name="com.example.hotelapplication.fragment.admin.AddInfoHotelFragment"
-        android:label="fragment_add_info_hotel"
-        tools:layout="@layout/fragment_add_info_hotel" />
-    <fragment
         android:id="@+id/registerAdminFragment"
         android:name="com.example.hotelapplication.fragment.loginRegister.RegisterAdminFragment"
         android:label="fragment_register_admin"
         tools:layout="@layout/fragment_register_admin" >
         <action
-            android:id="@+id/action_registerAdminFragment_to_addInfoHotelFragment"
-            app:destination="@id/addInfoHotelFragment" />
+            android:id="@+id/action_registerAdminFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
 </navigation>

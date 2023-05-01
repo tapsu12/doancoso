@@ -21,6 +21,8 @@ import com.example.hotelapplication.R
 import com.example.hotelapplication.data.Hotel
 import com.example.hotelapplication.data.TypeRoom
 import com.example.hotelapplication.databinding.FragmentAddInfoHotelBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -98,14 +100,14 @@ class AddInfoHotelFragment : Fragment() {
 
         private fun saveInfoHotel() {
             val name = binding.edName.text.toString().trim()
-            val category = binding.edCategory.text.toString().trim()
+            val addetail = binding.edADeitai.text.toString().trim()
             val price = binding.edPrice.text.toString().trim()
             val address = binding.edAddress.text.toString().trim()
             val offerPercentage = binding.offerPercentage.text.toString().trim()
             val description = binding.edDescription.text.toString().trim()
             var imagesByteArrays = getImagesByteArray()
             var images = mutableListOf<String>()
-
+            val id =UUID.randomUUID().toString()
             lifecycleScope.launch {
                 withContext(Dispatchers.Main) {
                     showLoading()
@@ -131,11 +133,12 @@ class AddInfoHotelFragment : Fragment() {
                 }
 
                 val hotel = Hotel(
-                    UUID.randomUUID().toString(),
+                    id,
                     name,
-                    category,
-                    price.toFloat(),
+                    FirebaseAuth.getInstance().currentUser!!.uid,
+                    price.toInt(),
                     address,
+                    addetail,
                     if (offerPercentage.isEmpty()) null else offerPercentage.toFloat(),
                     if (description.isEmpty()) null else description,
     //                if (selectedColor.isEmpty()) null else selectedColor,
@@ -143,10 +146,25 @@ class AddInfoHotelFragment : Fragment() {
                     images
                 )
                 //Thêm lên firestore
-                firestore.collection("Hotels").add(hotel).addOnSuccessListener {
+                firestore.collection("Hotels").document("${id}").set(hotel).addOnSuccessListener {
                     hideLoading()
+
+                    val adminId  = FirebaseAuth.getInstance().currentUser!!.uid
+
+                    val hotelId = id
+
+                    // Add hotel to admin's list
+                    val adminRef = firestore.collection("admin").document("${adminId}")
+                    adminRef.update("hotelList", FieldValue.arrayUnion(hotelId))
+                        .addOnSuccessListener {
+                            Log.d("Add hotel", "Hotel added to admin's list")
+                        }
+                        .addOnFailureListener {
+                            Log.e("Add hotel", "Error adding hotel to admin's list", it)
+                        }
+
                     binding.edName.setText("")
-                    binding.edCategory.setText("")
+                    binding.edADeitai.setText("")
                     binding.edPrice.setText("")
                     binding.edAddress.setText("")
                     binding.offerPercentage.setText("")
@@ -210,12 +228,6 @@ class AddInfoHotelFragment : Fragment() {
             dialog.show()
         }
 
-    private fun getTypeRoomList(sizesStr: String): List<String>? {
-            if (sizesStr.isEmpty()) return null
-            val sizeList = sizesStr.split(",")
-            return sizeList
-        }
-        //Kiểm tra thông tin vào
         private fun validationInformation(): Boolean {
             if (binding.edPrice.text.toString().trim().isEmpty()) return false
             if (binding.edName.text.toString().trim().isEmpty()) return false

@@ -41,7 +41,7 @@ class RegisterAdminFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.tvDontHaveAnAccount.setOnClickListener {
-            findNavController().navigate(R.id.action_registerFragment2_to_loginFragment)
+            findNavController().navigate(R.id.action_registerAdminFragment_to_loginFragment)
         }
 
         binding.apply {

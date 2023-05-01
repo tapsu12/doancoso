@@ -7,14 +7,15 @@ import kotlinx.parcelize.Parcelize
 data class Hotel(
     val id: String,
     val name: String,
-    val category: String,
-    val price: Float,
+    val idAdmin: String,
+    val price: Int,
     val address:String,
+    val addressdetail: String?=null,
     val offerPercentage: Float? = 0f,
     val description: String? = null,
     val typeRoom: List<TypeRoom>,
     val images: List<String>,
 
-): Parcelable {
-    constructor() : this( "0","" ,"",0f,"", typeRoom = emptyList(),images = emptyList())
+    ): Parcelable {
+    constructor() : this( "0","" ,"",0,"","",0f,"", typeRoom = emptyList(),images = emptyList())
 }

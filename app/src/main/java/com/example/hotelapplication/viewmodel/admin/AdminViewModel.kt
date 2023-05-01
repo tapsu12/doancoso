@@ -1,13 +1,13 @@
-package com.example.hotelapplication.viewmodel.main
+package com.example.hotelapplication.viewmodel.admin
 
 import android.app.Application
 import android.graphics.Bitmap
-import android.media.MediaMetadataRetriever.BitmapParams
 import android.net.Uri
 import android.provider.MediaStore
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.hotelapplication.HotelApplication
+import com.example.hotelapplication.data.Admin
 import com.example.hotelapplication.data.User
 import com.example.hotelapplication.util.RegisterValidation
 import com.example.hotelapplication.util.Resource
@@ -21,32 +21,34 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import java.io.ByteArrayOutputStream
-import java.util.UUID
+import java.util.*
 import javax.inject.Inject
 @HiltViewModel
-class UserAccountViewMoldel @Inject constructor(
+class AdminViewModel@Inject constructor(
     private val firestore: FirebaseFirestore,
     private val auth: FirebaseAuth,
-    private val storage:StorageReference,
-    app:Application
+    private val storage: StorageReference,
+    app: Application
 ) : AndroidViewModel(app){
-    private val _user= MutableStateFlow<Resource<User>>(Resource.Unspecified())
-    val user = _user.asStateFlow()
-    private val _updateInfo= MutableStateFlow<Resource<User>>(Resource.Unspecified())
-    val updateInfo = _updateInfo.asStateFlow()
+    private val _admin= MutableStateFlow<Resource<Admin>>(Resource.Unspecified())
+    val adminup = _admin.asStateFlow()
+
+    private val _updateAdInfo= MutableStateFlow<Resource<Admin>>(Resource.Unspecified())
+    val updateAdminInfo = _updateAdInfo.asStateFlow()
     init {
-        getUser()
+        getAdmin()
+
     }
-    fun getUser(){
+    fun getAdmin(){
         viewModelScope.launch {
-            _user.emit(Resource.Loading())
+            _admin.emit(Resource.Loading())
         }
-        firestore.collection("user").document(auth.uid!!).get()
+        firestore.collection("admin").document(auth.uid!!).get()
             .addOnSuccessListener {
-                val user =it.toObject(User::class.java)
+                val user =it.toObject(Admin::class.java)
                 user?.let{
                     viewModelScope.launch {
-                        _user.emit(Resource.Success(it))
+                        _admin.emit(Resource.Success(it))
                     }
 
                 }
@@ -54,68 +56,73 @@ class UserAccountViewMoldel @Inject constructor(
 
             }.addOnFailureListener {
                 viewModelScope.launch {
-                    _user.emit(Resource.Error(it.message.toString()))
+                    _admin.emit(Resource.Error(it.message.toString()))
                 }
             }
     }
-    fun updateUser(user: User,imgUri: Uri?){
-        val areInputValid= validateEmail(user.email) is RegisterValidation.Success
-                && user.firstName.trim().isNotEmpty() && user.lastName.trim().isNotEmpty()
-                && user.phone.trim().isNotEmpty()
+
+
+
+
+
+    fun updateAdmin(admin: Admin, imgUri: Uri?){
+        val areInputValid= validateEmail(admin.email) is RegisterValidation.Success
+                && admin.firstName.trim().isNotEmpty() && admin.lastName.trim().isNotEmpty()
+                && admin.phone.trim().isNotEmpty()
         if (!areInputValid){
             viewModelScope.launch {
-                _user.emit(Resource.Error("Check your inputs"))
+                _admin.emit(Resource.Error("Check your inputs"))
             }
             return
         }
 
         viewModelScope.launch {
-            _updateInfo.emit(Resource.Loading())
+            _updateAdInfo.emit(Resource.Loading())
 
         }
         if (imgUri==null){
-            saveUserInfomation(user,true)
+            saveAdminInfomation(admin,true)
         }else{
-            saveUserInfomationWithNewImage(user,imgUri)
+            saveAdminInfomationWithNewImage(admin,imgUri)
         }
     }
 
-    private fun saveUserInfomationWithNewImage(user: User, imgUri: Uri) {
+    private fun saveAdminInfomationWithNewImage(admin: Admin, imgUri: Uri) {
         viewModelScope.launch{
             try {
                 val imageBitmap= MediaStore.Images.Media.getBitmap(getApplication<HotelApplication>().contentResolver,imgUri)
-                val byteArrayOutputStream =ByteArrayOutputStream()
+                val byteArrayOutputStream = ByteArrayOutputStream()
                 imageBitmap.compress(Bitmap.CompressFormat.JPEG,96,byteArrayOutputStream)
                 val imageByteArray=byteArrayOutputStream.toByteArray()
-                val imageDirectory=storage.child("profileImages/${auth.uid}/${UUID.randomUUID()}")
+                val imageDirectory=storage.child("profileadminImages/${auth.uid}/${UUID.randomUUID()}")
                 val result=imageDirectory.putBytes(imageByteArray).await()
                 val imageUrl=result.storage.downloadUrl.await().toString()
-                saveUserInfomation(user.copy(imgPath =imageUrl ),false)
+                saveAdminInfomation(admin.copy(imgPath =imageUrl ),false)
             }catch (e:Exception){
                 viewModelScope.launch {
-                    _user.emit(Resource.Error(e.message.toString()))
+                    _admin.emit(Resource.Error(e.message.toString()))
                 }
             }
         }
     }
 
-    private fun saveUserInfomation(user: User, shouldRetrieveOldImage: Boolean) {
+    private fun saveAdminInfomation(admin: Admin, shouldRetrieveOldImage: Boolean) {
         firestore.runTransaction { transition->
-            val documentRef=firestore.collection("user").document(auth.uid!!)
-            val currentUser=transition.get(documentRef).toObject(User::class.java)
+            val documentRef=firestore.collection("admin").document(auth.uid!!)
+            val currentUser=transition.get(documentRef).toObject(Admin::class.java)
             if(shouldRetrieveOldImage){
-                val newUser= user.copy(imgPath = currentUser?.imgPath?:"")
+                val newUser= admin.copy(imgPath = currentUser?.imgPath?:"")
                 transition.set(documentRef,newUser)
             }else{
-                transition.set(documentRef,user)
+                transition.set(documentRef,admin)
             }
         }.addOnSuccessListener {
             viewModelScope.launch {
-                _updateInfo.emit(Resource.Success(user))
+                _updateAdInfo.emit(Resource.Success(admin))
             }
         }.addOnFailureListener {
             viewModelScope.launch {
-                _updateInfo.emit(Resource.Error(it.message.toString()))
+                _updateAdInfo.emit(Resource.Error(it.message.toString()))
             }
         }
 
