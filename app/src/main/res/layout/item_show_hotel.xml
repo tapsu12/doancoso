@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/g_card_background"
+    android:elevation="0dp"
+    >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/nameht"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="Tên Khách sạn" />
+
+    <TextView
+        android:id="@+id/adressht"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:text=" địa chỉ" />
+</LinearLayout>
+</androidx.cardview.widget.CardView>

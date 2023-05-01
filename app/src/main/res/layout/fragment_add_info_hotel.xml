@@ -51,11 +51,6 @@
                 android:hint="Name" />
 
 
-            <EditText
-                android:id="@+id/edCategory"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Category" />
 
             <EditText
                 android:id="@+id/edDescription"
@@ -82,6 +77,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Address" />
+            <EditText
+                android:id="@+id/edADeitai"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Address Detail" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 

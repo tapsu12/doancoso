@@ -55,6 +55,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics-ktx:20.1.2'
     implementation 'com.google.firebase:firebase-firestore-ktx:24.1.1'
     implementation 'com.google.firebase:firebase-storage-ktx:20.0.1'
+    implementation 'com.google.android.gms:play-services-maps:18.1.0'
 //    implementation "com.google.dagger:hilt-android:2.38.1"
 //    kapt "com.google.dagger:hilt-android-compiler:2.38.1"
     testImplementation 'junit:junit:4.13.2'

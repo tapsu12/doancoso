@@ -7,7 +7,7 @@ data class Admin(
     val phone:String,
     val role:String="admin",
     val imgPath:String="",
-    val hotelList: List<String>
+    val hotelList: List<String>?= emptyList()
 ) {
     constructor():this("","","","","admin","", emptyList())
 }
