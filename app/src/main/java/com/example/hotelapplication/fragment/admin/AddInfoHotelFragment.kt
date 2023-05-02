@@ -205,7 +205,7 @@ class AddInfoHotelFragment : Fragment() {
             val editTextPrice = dialog.findViewById<EditText>(R.id.editTextPrice)
             val editTextDescription = dialog.findViewById<EditText>(R.id.editTextDescription)
             val editTextQuantity = dialog.findViewById<EditText>(R.id.editTextQuantity)
-
+            val editTextQuantitybooking = dialog.findViewById<EditText>(R.id.edtQuantitybooking)
             val saveButton = dialog.findViewById<Button>(R.id.Savebuttom)
             val cancelButton = dialog.findViewById<Button>(R.id.Cancelbutton)
 
@@ -214,8 +214,8 @@ class AddInfoHotelFragment : Fragment() {
                 val price = editTextPrice.text.toString().toLong()
                 val description = editTextDescription.text.toString()
                 val quantity = editTextQuantity.text.toString().toInt()
-
-                val typeRoom = TypeRoom(name, price, description, quantity)
+                val quantitybooking=0
+                val typeRoom = TypeRoom(name, price, description, quantity,quantitybooking)
                 typeRoomList.add(typeRoom)
 
                 dialog.dismiss()

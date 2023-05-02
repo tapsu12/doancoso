@@ -28,6 +28,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Quantity" />
+    <EditText
+        android:id="@+id/edtQuantitybooking"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Quantitybooking"
+        android:inputType="numberDecimal"/>
+
     <Button
         android:id="@+id/Savebuttom"
         android:layout_width="wrap_content"

@@ -17,12 +17,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Loại phòng"
+            android:layout_marginRight="10dp"
             />
         <TextView
             android:id="@+id/tvpricetype"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Giá Loại phòng"
+            android:layout_marginRight="10dp"
             />
         <TextView
             android:id="@+id/tvdescriptionType"
@@ -30,10 +32,19 @@
             android:layout_height="wrap_content"
             android:text="Mô tả Loại phòng"
             />
-        <ImageView
-            android:id="@+id/check"
+        <EditText
+            android:id="@+id/edquatitybooking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:hint="số lượng"
+            android:inputType="numberDecimal">
+
+        </EditText>
+
+        <ImageView
+            android:id="@+id/check"
+            android:layout_width="43dp"
+            android:layout_height="match_parent"
             android:src="@drawable/ic_check" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>
