@@ -8,5 +8,6 @@ data class TypeRoom(
     val name:String="",
     val price:Long=0,
     val description:String="",
-    val quantity:Int=0
+    val quantity:Int=0,
+    var quantitybooking: Int=1
 ):Parcelable

@@ -10,6 +10,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 @HiltViewModel
 class MainHotelViewModel @Inject constructor(
@@ -31,8 +32,8 @@ class MainHotelViewModel @Inject constructor(
 
     fun fetchHotelDetails() {
         viewModelScope.launch {
-            _hotelDetails.emit(Resource.Loading())
         }
+
         firestore.collection("Hotels")
             .get().addOnSuccessListener { result ->
                 val hotel = result.toObjects(Hotel::class.java)
@@ -44,7 +45,7 @@ class MainHotelViewModel @Inject constructor(
                     _hotelDetails.emit(Resource.Error(it.message.toString()))
                 }
             }
-    }
+}
     fun fetchHotelShow() {
         viewModelScope.launch {
             _hotelshow.emit(Resource.Loading())
