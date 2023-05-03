@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_homeFragment3_to_hotelDetailsFragment"
             app:destination="@id/hotelDetailsFragment" />
+        <action
+            android:id="@+id/action_homeFragment3_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
     <fragment
         android:id="@+id/hotelDetailsFragment"
@@ -26,13 +29,46 @@
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.hotelapplication.fragment.main.ProfileFragment"
-        android:label="ProfileFragment" >
+        android:label="ProfileFragment"
+        tools:layout="@layout/fragment_profile"
+        >
         <action
             android:id="@+id/action_profileFragment_to_userAccountFragment"
             app:destination="@id/userAccountFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_OrderFragment"
+            app:destination="@id/OrderFragment" />
     </fragment>
     <fragment
         android:id="@+id/userAccountFragment"
         android:name="com.example.hotelapplication.fragment.main.UserAccountFragment"
-        android:label="UserAccountFragment" />
+        android:label="UserAccountFragment"
+        tools:layout="@layout/fragment_user_account"
+        />
+    <fragment
+        android:id="@+id/OrderFragment"
+        android:name="com.example.hotelapplication.fragment.main.OrderFragment"
+        android:label="FragmentOrder"
+        tools:layout="@layout/fragment_orders"
+        >
+        <action
+            android:id="@+id/action_OrderFragment_to_orderFragmentDetail"
+            app:destination="@id/orderFragmentDetail" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.hotelapplication.fragment.main.SearchFragment"
+        android:label="SearchFragment"
+        tools:layout="@layout/fragment_search"
+        />
+    <fragment
+        android:id="@+id/orderFragmentDetail"
+        android:name="com.example.hotelapplication.fragment.main.OrderFragmentDetail"
+        android:label="OrderFragmentDetail"
+        tools:layout="@layout/fragment_order_detail"
+        >
+        <argument
+            android:name="booking"
+            app:argType="com.example.hotelapplication.data.Booking" />
+    </fragment>
 </navigation>

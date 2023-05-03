@@ -170,7 +170,7 @@ class HotelDetailsFragment:Fragment() {
         val bookingRef=db.collection("user").document("${FirebaseAuth.getInstance().currentUser!!.uid}").collection("bookings")
 //        val bookingRef = db.collection("bookings").document()
         val booking = Booking(
-            idbooking = bookingRef.id,
+            idbooking = FirebaseAuth.getInstance().currentUser!!.uid ,
             namehotel = name,
             namebooking =  namebooking  ,
             cmnd = cmnd,

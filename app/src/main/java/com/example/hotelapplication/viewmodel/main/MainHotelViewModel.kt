@@ -2,6 +2,7 @@ package com.example.hotelapplication.viewmodel.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.hotelapplication.data.Booking
 import com.example.hotelapplication.data.Hotel
 import com.example.hotelapplication.util.Resource
 import com.google.firebase.auth.FirebaseAuth
@@ -21,13 +22,34 @@ class MainHotelViewModel @Inject constructor(
     private val _hotelDetails =
         MutableStateFlow<Resource<List<Hotel>>>(Resource.Unspecified())
     val hotelDetail: StateFlow<Resource<List<Hotel>>> = _hotelDetails
+    private val _hotelBooking =
+        MutableStateFlow<Resource<List<Booking>>>(Resource.Unspecified())
+    val hotelBooking: StateFlow<Resource<List<Booking>>> = _hotelBooking
     //hiện trang admin
     private val _hotelshow = MutableStateFlow<Resource<List<Hotel>>>(Resource.Unspecified())
     val hotelshow: StateFlow<Resource<List<Hotel>>> = _hotelshow
 
     init {
         fetchHotelDetails()
+        fetchHotelBooking()
         fetchHotelShow()
+    }
+
+    private fun fetchHotelBooking() {
+        viewModelScope.launch {
+        }
+
+        firestore.collection("user").document("${auth.currentUser!!.uid}").collection("bookings")
+            .get().addOnSuccessListener { result ->
+                val booking = result.toObjects(Booking::class.java)
+                viewModelScope.launch {
+                    _hotelBooking.emit(Resource.Success(booking))
+                }
+            }.addOnFailureListener {
+                viewModelScope.launch {
+                    _hotelBooking.emit(Resource.Error(it.message.toString()))
+                }
+            }
     }
 
     fun fetchHotelDetails() {
